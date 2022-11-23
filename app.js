@@ -9,12 +9,14 @@ var usersRouter = require('./routes/users');
 var catalogRouter = require('./routes/catalog');
 
 const compression = require("compression");
+const helmet = require("helmet");
 
 var app = express();
 
 const mongoose = require('mongoose');
-const mongodb = 'mongodb+srv://tanishka-2:library@cluster0.9obhjki.mongodb.net/local_library?retryWrites=true&w=majority';
-mongoose.connect(mongodb,{useNewUrlParser: true, useUnifiedTopology:true});
+const dev_db_url ='mongodb+srv://tanishka-2:library@cluster0.9obhjki.mongodb.net/local_library?retryWrites=true&w=majority';
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
+mongoose.connect(mongoDB,{useNewUrlParser: true, useUnifiedTopology:true});
 const db = mongoose.connection;
 db.on('error',console.error.bind(console, 'Mongodb connection error'));
 
@@ -27,6 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(compression());
+app.use(helmet());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);

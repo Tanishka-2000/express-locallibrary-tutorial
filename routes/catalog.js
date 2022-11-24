@@ -5,7 +5,7 @@ const router = express.Router();
 const book_controller = require("../controllers/bookController.js");
 const author_controller = require("../controllers/authorController.js");
 const genre_controller = require("../controllers/genreController.js");
-const book_instance_controller = require("../controllers/bookinstanceController.js");
+const book_instance_controller = require("../controllers/bookInstanceController.js");
 
 /// BOOK ROUTES ///
 
